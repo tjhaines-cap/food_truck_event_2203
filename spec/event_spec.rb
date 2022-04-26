@@ -76,6 +76,27 @@ describe Event do
       expect(@event.overstocked_items).to eq([@item1])
     end
 
+    it 'can put total inventory into a hash' do
+      expect(@event.total_inventory).to eq({
+    @item1 => {
+       quantity: 100,
+       food_trucks: [@food_truck1, @food_truck3]
+     },
+     @item2 => {
+       quantity: 7,
+       food_trucks: [@food_truck1]
+     },
+     @item4 => {
+       quantity: 50,
+       food_trucks: [@food_truck2]
+     },
+     @item3 => {
+       quantity: 35,
+       food_trucks: [@food_truck2, @food_truck3]
+     },
+   })
+    end
+
   end
 
 end

@@ -61,4 +61,19 @@ class Event
     end
     return overstocked
   end
+
+  def total_inventory
+    inventory_hash = {}
+    @food_trucks.each do |food_truck|
+      food_truck.inventory.each do |item, amount|
+        if inventory_hash[item]
+          inventory_hash[item][:quantity] += amount
+          inventory_hash[item][:food_trucks] << food_truck
+        else
+          inventory_hash[item] = {quantity: amount, food_trucks: [food_truck]}
+        end
+      end
+    end
+    return inventory_hash
+  end
 end
