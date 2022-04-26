@@ -1,4 +1,4 @@
-
+require 'date'
 
 class Event
 
@@ -7,6 +7,7 @@ class Event
   def initialize(name)
     @name = name
     @food_trucks = []
+    @date = Date.today
   end
 
   def add_food_truck(food_truck)
@@ -75,5 +76,10 @@ class Event
       end
     end
     return inventory_hash
+  end
+
+  def date
+    date_str = @date.strftime("%d/%m/%Y")
+    return date_str
   end
 end
