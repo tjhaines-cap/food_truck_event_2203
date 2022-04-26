@@ -82,4 +82,21 @@ class Event
     date_str = @date.strftime("%d/%m/%Y")
     return date_str
   end
+
+  def sell(item, amount)
+    sold = false
+    inventory_hash = total_inventory
+    if inventory_hash[item]
+      if inventory_hash[item][:quantity] > amount
+        sold = true
+        inventory_hash[item][:food_trucks].each do |food_truck|
+          amount = food_truck.sell(item, amount)
+          if amount == 0
+            break
+          end
+        end
+      end
+    end
+    return sold
+  end
 end

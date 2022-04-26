@@ -33,4 +33,15 @@ class FoodTruck
     return revenue
   end
 
+  def sell(item, amount)
+    leftover = 0
+    if @inventory[item] < amount
+      leftover = amount - @inventory[item]
+      @inventory[item] = 0
+    else
+      @inventory[item] -= amount
+    end
+    return leftover
+  end
+
 end
