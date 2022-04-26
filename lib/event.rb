@@ -31,4 +31,13 @@ class Event
     return food_trucks_sell_item
   end
 
+  def sorted_item_list
+    item_list = []
+    @food_trucks.each do |food_truck|
+      item_list << food_truck.inventory.keys
+    end
+    uniq_item_list = item_list.flatten.uniq
+    sorted_list = uniq_item_list.sort{|item1, item2| item1.name <=> item2.name}
+  end
+
 end
