@@ -41,7 +41,7 @@ class Event
     sorted_list = uniq_item_list.sort{|item1, item2| item1.name <=> item2.name}
   end
 
-  def overstocked_items
+  def item_occurrences_quantity
     item_occurrences_quantity = {}
     @food_trucks.each do |food_truck|
       food_truck.inventory.each do |item, amount|
@@ -53,9 +53,13 @@ class Event
         end
       end
     end
+    return item_occurrences_quantity
+  end
+
+  def overstocked_items
+    item_occurrences_quantity_hash = item_occurrences_quantity
     overstocked = []
-    item_occurrences_quantity.each do |item, occurrences_quantity|
-      # binding.pry
+    item_occurrences_quantity_hash.each do |item, occurrences_quantity|
       if (occurrences_quantity[0] >= 2) && (occurrences_quantity[1] >=50)
         overstocked << item
       end
@@ -86,14 +90,12 @@ class Event
   def sell(item, amount)
     sold = false
     inventory_hash = total_inventory
-    if inventory_hash[item]
-      if inventory_hash[item][:quantity] > amount
-        sold = true
-        inventory_hash[item][:food_trucks].each do |food_truck|
-          amount = food_truck.sell(item, amount)
-          if amount == 0
-            break
-          end
+    if inventory_hash[item] && inventory_hash[item][:quantity] > amount
+      sold = true
+      inventory_hash[item][:food_trucks].each do |food_truck|
+        amount = food_truck.sell(item, amount)
+        if amount == 0
+          break
         end
       end
     end

@@ -72,6 +72,15 @@ describe Event do
       expect(@event.sorted_item_list).to eq([@item2, @item4, @item1, @item3])
     end
 
+    it 'can create a hash with each items number of trucks it is in and total quantity' do
+      expect(@event.item_occurrences_quantity).to eq({
+        @item1 => [2, 100],
+        @item2 => [1, 7],
+        @item3 => [2, 35],
+        @item4 => [1, 50]
+        })
+    end
+
     it 'can determine overstocked items' do
       expect(@event.overstocked_items).to eq([@item1])
     end
