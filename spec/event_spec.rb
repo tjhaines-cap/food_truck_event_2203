@@ -72,6 +72,10 @@ describe Event do
       expect(@event.sorted_item_list).to eq([@item2, @item4, @item1, @item3])
     end
 
+    it 'can determine overstocked items' do
+      expect(@event.overstocked_items).to eq([@item1])
+    end
+
   end
 
 end
